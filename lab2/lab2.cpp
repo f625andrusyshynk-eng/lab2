@@ -1,8 +1,26 @@
-#include <iostream> #include <string>
+#include <iostream> 
+#include <string>
 using namespace std;
 class Worker {
-private: int id; string name; double salary; int experience; int workedDays; int totalDays; double earnings; double tax;
-public: Worker() { id = 0; name = ""; salary = 0.0; experience = 0; workedDays = 0; totalDays = 22; earnings = 0.0; tax = 0.0; }
+private: int id;
+string name;
+double salary;
+int experience;
+int workedDays;
+int totalDays;
+double earnings;
+double tax;
+public: Worker() 
+{ 
+      id = 0; 
+      name = "";
+      salary = 0.0;
+      experience = 0;
+      workedDays = 0;
+      totalDays = 22;
+      earnings = 0.0;
+      tax = 0.0; 
+}
       void set(int workerId, string workerName, double baseSalary, int exp, int days, int maxDays)
       {
           id = workerId;
@@ -53,8 +71,12 @@ public: Worker() { id = 0; name = ""; salary = 0.0; experience = 0; workedDays =
       }
 };
 class List {
-private: Worker items[20]; int count;
-public: List() { count = 0; }
+private: Worker items[20];
+int count;
+public: List() 
+{ 
+      count = 0; 
+}
       void add(Worker w)
       {
           if (count < 20)

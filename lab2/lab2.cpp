@@ -1,11 +1,11 @@
 #include <iostream> 
-#include <string>
+#include <cstring>
 using namespace std;
 
 class Worker {
 private: 
     int id;
-    string name;
+    char* name;
     double salary;
     int experience;
     int workedDays;
@@ -17,7 +17,8 @@ public:
     Worker() 
     { 
         id = 0; 
-        name = "";
+        name = new char[1];
+        name[0] = '\0';
         salary = 0.0;
         experience = 0;
         workedDays = 0;
@@ -26,10 +27,53 @@ public:
         tax = 0.0; 
     }
 
-    void set(int workerId, string workerName, double baseSalary, int exp, int days, int maxDays)
+    Worker(const Worker& other)
+    {
+        id = other.id;
+        salary = other.salary;
+        experience = other.experience;
+        workedDays = other.workedDays;
+        totalDays = other.totalDays;
+        earnings = other.earnings;
+        tax = other.tax;
+        
+        name = new char[strlen(other.name) + 1];
+        strcpy(name, other.name);
+    }
+
+    Worker& operator=(const Worker& other)
+    {
+        if (this != &other)
+        {
+            delete[] name;
+
+            id = other.id;
+            salary = other.salary;
+            experience = other.experience;
+            workedDays = other.workedDays;
+            totalDays = other.totalDays;
+            earnings = other.earnings;
+            tax = other.tax;
+
+            name = new char[strlen(other.name) + 1];
+            strcpy(name, other.name);
+        }
+        return *this;
+    }
+
+    ~Worker() 
+    {
+        delete[] name;
+    }
+
+    void set(int workerId, const char* workerName, double baseSalary, int exp, int days, int maxDays)
     {
         id = workerId;
-        name = workerName;
+        
+        delete[] name;
+        name = new char[strlen(workerName) + 1];
+        strcpy(name, workerName);
+
         salary = baseSalary;
         experience = exp;
         workedDays = days;
@@ -86,6 +130,8 @@ public:
     { 
         count = 0; 
     }
+
+    ~List() {}
 
     void add(Worker w)
     {
